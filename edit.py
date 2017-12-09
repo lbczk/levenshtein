@@ -36,9 +36,16 @@ class Edit():
         self.t = np.zeros((self.n + 1, self.m + 1), dtype=int)
         self.t[0] = range(self.m + 1)
         self.t[:, 0] = range(self.n + 1)
+
+        # The following boolean flag is used to determine whether
+        # compute_edit_array has already been called
         self.computed = False
 
     def compute_edit_array(self):
+        """
+        Computes the array of distances between
+        any prefix of s1 and prefix of s2 using DP
+        """
         self.computed = True
         for i in range(1, self.n + 1):
             for j in range(1, self.m + 1):
@@ -48,11 +55,18 @@ class Edit():
                     self.t[i][j] = 1 + min(self.t[i - 1][j], self.t[i][j - 1], self.t[i - 1][j - 1])
 
     def distance(self):
+        """
+        Returns the distance between s1 and s2
+        """
         if not self.computed:
             self.compute_edit_array()
         return self.t[self.n][self.m]
 
     def compute_path(self):
+        """
+        Computes the whole path of transformations
+        leading to s2 from s1
+        """
         if not self.computed:
             self.compute_edit_array()
         path = [self.s1]
