@@ -5,6 +5,8 @@ class Edit():
     """
     Computes the edit distance between s1 and s2
     using a classical dynamic programming approach.
+        >>> Edit("", "a").distance()
+        1
         >>> Edit("a", "b").distance()
         1
         >>> Edit("aa", "a").distance()
